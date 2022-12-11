@@ -57,7 +57,7 @@ function createHumidityGauge(){
         renderTo: 'gauge-humidity',
         width: 300,
         height: 300,
-        units: "Humidity (%)",
+        units: "Frecuencia (ppm)",
         minValue: 0,
         maxValue: 100,
         colorValueBoxRect: "#049faa",
@@ -65,13 +65,14 @@ function createHumidityGauge(){
         colorValueBoxBackground: "#f1fbfc",
         valueInt: 2,
         majorTicks: [
-            "0",
-            "20",
             "40",
             "60",
             "80",
-            "100"
-    
+            "100",
+            "120",
+            "140",
+            "160",
+            "180"
         ],
         minorTicks: 4,
         strokeTicks: true,

@@ -37,6 +37,10 @@ body {
     padding: 5%;
 }
 
+.chart{
+    overflow-x: scroll;
+}
+
 .cards {
     max-width: 800px;
     margin: 0 auto;

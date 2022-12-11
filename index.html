@@ -87,32 +87,14 @@
         Gauges: <input type="checkbox" id="gauges-checkbox" name="gauges-checkbox" checked>
         Charts: <input type="checkbox" id="charts-checkbox" name="charts-checkbox" unchecked>
       </p>
-      <div id="cards-div">
-        <div class="cards">
-          <!--TEMPERATURE-->
-          <div class="card">
-            <p><i class="fas fa-thermometer-half" style="color:#059e8a;"></i> TEMPERATURE</p>
-            <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
-          </div>
-          <!--HUMIDITY-->
-          <div class="card">
-            <p><i class="fas fa-tint" style="color:#00add6;"></i> HUMIDITY</p>
-            <p><span class="reading"><span id="hum"></span> &percnt;</span></p>
-          </div>
-          <!--PRESSURE-->
-          <div class="card">
-            <p><i class="fas fa-angle-double-down" style="color:#e1e437;"></i> PRESSURE</p>
-            <p><span class="reading"><span id="pres"></span> hPa</span></p>
-          </div>
-        </div>
-      </div>
+      
       <!--GAUGES-->
       <div id ="gauges-div">
         <div class="cards">
           <!--TEMPERATURE-->
-          <div class="card">
+          <!-- <div class="card">
             <canvas id="gauge-temperature"></canvas>
-          </div>
+          </div> -->
           <!--HUMIDITY-->
           <div class="card">
             <canvas id="gauge-humidity"></canvas>
@@ -128,25 +110,25 @@
         </div>
         <!--TEMPERATURE-CHART-->
         <div class="cards">
-          <div class="card">
-            <p><i class="fas fa-thermometer-half" style="color:#059e8a;"></i> SEÑAL ECG</p>
+          <div class="card chart">
+            <p><i class="fas fa-heart" style="color:red"></i> SEÑAL ECG</p>
             <div id="chart-temperature" class="chart-container"></div>
           </div>
         </div>
         <!--HUMIDITY-CHART-->
         <div class="cards">
-          <div class="card">
-            <p><i class="fas fa-tint" style="color:#00add6;"></i> HUMIDITY CHART</p>
+          <div class="card chart">
+            <p><i class="fas fa-heart" style="color: red"></i> Frecuencia Cardiaca (ppm)</p>
             <div id="chart-humidity" class="chart-container"></div>
           </div>
         </div>
         <!--PRESSURE-CHART-->
-        <div class="cards">
+        <!-- <div class="cards">
           <div class="card">
             <p><i class="fas fa-angle-double-down" style="color:#e1e437;"></i> PRESSURE CHART</p>
             <div id="chart-pressure" class="chart-container"></div>
           </div>
-        </div>
+        </div> -->
       </div>
 
     <!--BUTTONS TO HANDLE DATA-->
@@ -176,13 +158,14 @@
     <!--TABLE WITH ALL DATA-->
     <div class ="cards">
       <div class="card" id="table-container" style= "display:none;">
+        <button type="button" style="float: right;" id="copy">Copiar</button>
         <table id="readings-table">
             <tr id="theader">
               <th>Timestamp</th>
-              <th>Voltaje (V)</th>
               <th>Tiempo (mS)</th>
+              <th>Voltaje (V)</th>
               <!--<th>Pres (hPa)</th>-->
-              <th>Derivación</th>
+              <th>Frecuencia (ppm)</th>
             </tr>
             <tbody id="tbody">
             </tbody>

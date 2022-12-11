@@ -4,7 +4,6 @@ window.addEventListener('load', onload);
 function onload(event){
   chartT = createTemperatureChart();
   chartH = createHumidityChart();
-  chartP = createPressureChart();
 }
 
 // Create Temperature Chart
@@ -77,7 +76,7 @@ function createHumidityChart(){
     },
     yAxis: {
       title: { 
-        text: 'Humidity (%)' 
+        text: 'Frecuencia (ppm)' 
       }
     },
     credits: { 

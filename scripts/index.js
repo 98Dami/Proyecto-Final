@@ -27,6 +27,16 @@ function plotValues(chart, timestamp, value){
   }
 }
 
+function plotValue(chart, value1, value2){
+  var x = Number(value1);
+  var y = Number(value2);
+  if(chart.series[0].data.length > 40) {
+    chart.series[0].addPoint([x, y], true, true, true);
+  } else {
+    chart.series[0].addPoint([x, y], true, false, true);
+  }
+}
+
 // DOM elements
 const loginElement = document.querySelector('#login-form');
 const contentElement = document.querySelector("#content-sign-in");
@@ -40,6 +50,7 @@ const hideDataButtonElement = document.getElementById('hide-data-button');
 const tableContainerElement = document.querySelector('#table-container');
 const chartsRangeInputElement = document.getElementById('charts-range');
 const loadDataButtonElement = document.getElementById('load-data');
+const copyButtonElement = document.getElementById('copy');
 const cardsCheckboxElement = document.querySelector('input[name=cards-checkbox]');
 const gaugesCheckboxElement = document.querySelector('input[name=gauges-checkbox]');
 const chartsCheckboxElement = document.querySelector('input[name=charts-checkbox]');
@@ -85,24 +96,25 @@ const setupUI = (user) => {
       // Delete all data from charts to update with new values when a new range is selected
       chartT.destroy();
       chartH.destroy();
-      chartP.destroy();
+      //chartP.destroy();
       // Render new charts to display new range of data
       chartT = createTemperatureChart();
       chartH = createHumidityChart();
-      chartP = createPressureChart();
+      //chartP = createPressureChart();
       // Update the charts with the new range
       // Get the latest readings and plot them on charts (the number of plotted readings corresponds to the chartRange value)
       dbRef.orderByKey().limitToLast(chartRange).on('child_added', snapshot =>{
         var jsonData = snapshot.toJSON(); // example: {temperature: 25.02, humidity: 50.20, pressure: 1008.48, timestamp:1641317355}
+        console.log(jsonData)
         // Save values on variables
         var temperature = jsonData.temperature;
         var humidity = jsonData.humidity;
         var pressure = jsonData.pressure;
         var timestamp = jsonData.timestamp;
         // Plot the values on the charts
-        plotValues(chartT, timestamp, temperature);
-        plotValues(chartH, timestamp, humidity);
-        plotValues(chartP, timestamp, pressure);
+        plotValue(chartT, humidity, temperature);
+        plotValue(chartH, humidity, pressure);
+        //plotValues(chartP, timestamp, pressure);
       });
     });
 
@@ -164,12 +176,12 @@ const setupUI = (user) => {
       var pressure = jsonData.pressure;
       var timestamp = jsonData.timestamp;
       // Update DOM elements
-      var gaugeT = createTemperatureGauge();
+      //var gaugeT = createTemperatureGauge();
       var gaugeH = createHumidityGauge();
-      gaugeT.draw();
+      //gaugeT.draw();
       gaugeH.draw();
-      gaugeT.value = temperature;
-      gaugeH.value = humidity;
+      //gaugeT.value = temperature;
+      gaugeH.value = pressure;
       updateElement.innerHTML = epochToDateTime(timestamp);
     });
 
@@ -196,7 +208,6 @@ const setupUI = (user) => {
       dbRef.orderByKey().limitToLast(100).on('child_added', function(snapshot) {
         if (snapshot.exists()) {
           var jsonData = snapshot.toJSON();
-          console.log(jsonData);
           var temperature = jsonData.temperature;
           var humidity = jsonData.humidity;
           var pressure = jsonData.pressure;
@@ -204,8 +215,8 @@ const setupUI = (user) => {
           var content = '';
           content += '<tr>';
           content += '<td>' + epochToDateTime(timestamp) + '</td>';
-          content += '<td>' + temperature + '</td>';
           content += '<td>' + humidity + '</td>';
+          content += '<td>' + temperature + '</td>';
           content += '<td>' + pressure + '</td>';
           content += '</tr>';
           $('#tbody').prepend(content);
@@ -223,7 +234,6 @@ const setupUI = (user) => {
     function appendToTable(){
       var dataList = []; // saves list of readings returned by the snapshot (oldest-->newest)
       var reversedList = []; // the same as previous, but reversed (newest--> oldest)
-      console.log("APEND");
       dbRef.orderByKey().limitToLast(100).endAt(lastReadingTimestamp).once('value', function(snapshot) {
         // convert the snapshot to JSON
         if (snapshot.exists()) {
@@ -277,6 +287,21 @@ const setupUI = (user) => {
       viewDataButtonElement.style.display = 'inline-block';
       hideDataButtonElement.style.display = 'none';
     });
+
+    copyButtonElement.addEventListener('click', (e) =>{
+      var filas = document.getElementById('tbody').childNodes;
+      var values = [];
+      filas.forEach((element, index) => {
+        var object = {
+          tiempo: Number(element.childNodes[1]?.textContent), 
+          voltaje: Number(element.childNodes[2]?.textContent), 
+          frecuencia: Number(element.childNodes[3]?.textContent), 
+          timestamp: element.childNodes[0]?.textContent
+        }
+        values.push(object);        
+      })
+      navigator.clipboard.writeText(JSON.stringify(values));
+    })
 
   // IF USER IS LOGGED OUT
   } else{
