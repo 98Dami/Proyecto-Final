@@ -51,9 +51,9 @@ const tableContainerElement = document.querySelector('#table-container');
 const chartsRangeInputElement = document.getElementById('charts-range');
 const loadDataButtonElement = document.getElementById('load-data');
 const copyButtonElement = document.getElementById('copy');
-const cardsCheckboxElement = document.querySelector('input[name=cards-checkbox]');
-const gaugesCheckboxElement = document.querySelector('input[name=gauges-checkbox]');
-const chartsCheckboxElement = document.querySelector('input[name=charts-checkbox]');
+// const cardsCheckboxElement = document.querySelector('input[name=cards-checkbox]');
+// const gaugesCheckboxElement = document.querySelector('input[name=gauges-checkbox]');
+// const chartsCheckboxElement = document.querySelector('input[name=charts-checkbox]');
 
 // DOM elements for sensor readings
 const cardsReadingsElement = document.querySelector("#cards-div");
@@ -98,8 +98,8 @@ const setupUI = (user) => {
       chartH.destroy();
       //chartP.destroy();
       // Render new charts to display new range of data
-      chartT = createTemperatureChart();
-      chartH = createHumidityChart();
+      //chartT = createTemperatureChart();
+      //chartH = createHumidityChart();
       //chartP = createPressureChart();
       // Update the charts with the new range
       // Get the latest readings and plot them on charts (the number of plotted readings corresponds to the chartRange value)
@@ -125,32 +125,32 @@ const setupUI = (user) => {
 
     //CHECKBOXES
     // Checbox (cards for sensor readings)
-    cardsCheckboxElement.addEventListener('change', (e) =>{
-      if (cardsCheckboxElement.checked) {
-        cardsReadingsElement.style.display = 'block';
-      }
-      else{
-        cardsReadingsElement.style.display = 'none';
-      }
-    });
+    // cardsCheckboxElement.addEventListener('change', (e) =>{
+    //   if (cardsCheckboxElement.checked) {
+    //     cardsReadingsElement.style.display = 'block';
+    //   }
+    //   else{
+    //     cardsReadingsElement.style.display = 'none';
+    //   }
+    // });
     // Checbox (gauges for sensor readings)
-    gaugesCheckboxElement.addEventListener('change', (e) =>{
-      if (gaugesCheckboxElement.checked) {
-        gaugesReadingsElement.style.display = 'block';
-      }
-      else{
-        gaugesReadingsElement.style.display = 'none';
-      }
-    });
+    // gaugesCheckboxElement.addEventListener('change', (e) =>{
+    //   if (gaugesCheckboxElement.checked) {
+    //     gaugesReadingsElement.style.display = 'block';
+    //   }
+    //   else{
+    //     gaugesReadingsElement.style.display = 'none';
+    //   }
+    // });
     // Checbox (charta for sensor readings)
-    chartsCheckboxElement.addEventListener('change', (e) =>{
-      if (chartsCheckboxElement.checked) {
-        chartsDivElement.style.display = 'block';
-      }
-      else{
-        chartsDivElement.style.display = 'none';
-      }
-    });
+    // chartsCheckboxElement.addEventListener('change', (e) =>{
+    //   if (chartsCheckboxElement.checked) {
+    //     chartsDivElement.style.display = 'block';
+    //   }
+    //   else{
+    //     chartsDivElement.style.display = 'none';
+    //   }
+    // });
 
     // CARDS
     // Get the latest readings and display on cards
@@ -177,11 +177,11 @@ const setupUI = (user) => {
       var timestamp = jsonData.timestamp;
       // Update DOM elements
       //var gaugeT = createTemperatureGauge();
-      var gaugeH = createHumidityGauge();
+      //var gaugeH = createHumidityGauge();
       //gaugeT.draw();
-      gaugeH.draw();
+      //gaugeH.draw();
       //gaugeT.value = temperature;
-      gaugeH.value = pressure;
+      //gaugeH.value = pressure;
       updateElement.innerHTML = epochToDateTime(timestamp);
     });
 
