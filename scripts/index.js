@@ -217,7 +217,7 @@ const setupUI = (user) => {
           content += '<td>' + epochToDateTime(timestamp) + '</td>';
           content += '<td>' + humidity + '</td>';
           content += '<td>' + temperature + '</td>';
-          content += '<td>' + pressure + '</td>';
+          // content += '<td>' + pressure + '</td>';
           content += '</tr>';
           $('#tbody').prepend(content);
           // Save lastReadingTimestamp --> corresponds to the first timestamp on the returned snapshot data
@@ -295,7 +295,7 @@ const setupUI = (user) => {
         var object = {
           tiempo: Number(element.childNodes[1]?.textContent), 
           voltaje: Number(element.childNodes[2]?.textContent), 
-          frecuencia: Number(element.childNodes[3]?.textContent), 
+          //frecuencia: Number(element.childNodes[3]?.textContent), 
           timestamp: element.childNodes[0]?.textContent
         }
         values.push(object);        
